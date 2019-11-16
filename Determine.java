@@ -63,7 +63,6 @@ public class Determine {
     } else{
       ageScore = ageScore + 2;
     }
-
     return ageScore;
   } // calculateAgeScore
 } // Determine
