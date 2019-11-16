@@ -1,3 +1,5 @@
+package api;
+
 // This sample uses Apache HttpComponents:
 // http://hc.apache.org/httpcomponents-core-ga/httpcore/apidocs/
 // https://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/
