@@ -17,7 +17,17 @@ public class Determine {
     info.put("Fear", 0.54);
 
     int mood = calculateMoodScore(info);
-    System.out.println(mood);
+    int age = calculateAgeScore(info);
+    int totalScore = mood + age;
+    System.out.println("Your mood score is " + mood);
+    System.out.println("Your age score is " + age);
+    System.out.println("Your total score is " + totalScore);
+
+    if (totalScore <= 0){
+      System.out.println("You should walk");
+    } else {
+      System.out.println("You should take the bus");
+    }
   } // main
 
   public static int calculateMoodScore(Dictionary<String, Double> info){
@@ -28,9 +38,6 @@ public class Determine {
     double avgHappy = totalHappy / 2;
     double avgNeutral = info.get("Neutral");
     double avgSad = totalSad / 5;
-    System.out.println(avgHappy);
-    System.out.println(avgNeutral);
-    System.out.println(avgSad);
 
     if(avgHappy > avgNeutral && avgHappy > avgSad)
         {
@@ -41,6 +48,22 @@ public class Determine {
             moodScore--;
         }
     return moodScore;
-  } // calculateHappy
+  } // calculateMoodScore
 
+  public static int calculateAgeScore(Dictionary<String, Double> info){
+    double age = info.get("Age");
+    int ageScore = 0;
+
+    if (age < 25){
+      ageScore = ageScore - 2;
+    } else if (25 < age && age < 40){
+      ageScore--;
+    } else if (40 < age && age < 60){
+      ageScore++;
+    } else{
+      ageScore = ageScore + 2;
+    }
+
+    return ageScore;
+  } // calculateAgeScore
 } // Determine
