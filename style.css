@@ -17,7 +17,7 @@ body {
 }
 
 .navbar-brand img {
-  height: 2rem;
+  height: 5rem;
 }
 
 .navbar-nav li {
@@ -48,7 +48,7 @@ body {
   position: absolute;
   top: 38%;
   z-index: 1;
-  color: white;
+  color: black;
   text-transform: uppercase;
 }
 
@@ -71,6 +71,7 @@ body {
   border-radius: 0;
   padding: .6rem 1.3rem;
   font-size: 1.1rem;
+  color: black;
 }
 
 .form-control {
