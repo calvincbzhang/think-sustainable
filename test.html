@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSSample</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    function printMe(barcode) {
+      console.log("done");
+        var params = {
+            // Request parameters
+            "gtin": barcode,
+        };
+
+        $.ajax({
+            url: "https://dev.tescolabs.com/product/?" + $.param(params),
+            beforeSend: function(xhrObj){
+                // Request headers
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","82a19d5b25574c0491ea06ca5d8eadb2");
+            },
+            type: "GET",
+            // Request body
+            data: "{body}",
+        })
+        .done(function(data) {
+            const tpnc = data.products[0].tpnc
+            const readableData = data.products[0].productCharacteristics
+            var healthScore = readableData.healthScore;
+            var hazard = readableData.isHazardous;
+            var quantity = data.products[0].qtyContents.quantity;
+            console.log("quantity: " + quantity);
+            console.log("healthScore: " + healthScore);
+            console.log("is it Hazardous: " + hazard);
+            alert("success");
+        })
+        .fail(function() {
+            alert("error");
+        });
+    };
+</script>
+<button type="button" name="button" onclick="printMe(5000328347790)">click</button>
+</body>
+</html>

@@ -26,8 +26,6 @@ const countBreeds = async () => {
   console.log("quantity: " + quantity);
   console.log("healthScore: " + healthScore);
   console.log("is it Hazardous:" + hazard);
-  console.log("tpnc: " + tpnc);
-  return healthScore;
 }
 
 countBreeds()
