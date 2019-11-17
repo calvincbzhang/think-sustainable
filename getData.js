@@ -1,6 +1,14 @@
 var totalQuantity = 0;
 var totalFootPrint = 0;
 var averageHealth = 0;
+var readableData;
+var description;
+var healthScore;
+var hazard;
+var quantity;
+var footprint;
+var myVar = setInterval(myTimer, 500);
+
 
 function outputTotalQuantity(){
   console.log(totalQuantity);
@@ -12,6 +20,18 @@ function outputTotalFootprint(){
 
 function outputAverageHealth(){
   console.log(averageHealth);
+}
+
+function printName() {
+  return description;
+}
+
+function printQty() {
+  return totalQuantity;
+}
+
+function printHealth() {
+  return healthScore;
 }
 
 function printMe(barcode) {
@@ -32,12 +52,12 @@ function printMe(barcode) {
     })
     .done(function(data) {
       if(!(data.products == undefined || data.products.length == 0)){
-        const readableData = data.products[0].productCharacteristics;
-        const description = data.products[0].description;
-        var healthScore = readableData.healthScore;
-        var hazard = readableData.isHazardous;
-        var quantity = data.products[0].qtyContents.quantity;
-        var footprint = quantity * 2.71;
+        readableData = data.products[0].productCharacteristics;
+        description = data.products[0].description;
+        healthScore = readableData.healthScore;
+        hazard = readableData.isHazardous;
+        quantity = data.products[0].qtyContents.quantity;
+        footprint = quantity * 2.71;
         averageHealth = (healthScore + averageHealth * totalQuantity) / (totalQuantity + 1);
         totalQuantity++;
         totalFootPrint = totalFootPrint + footprint;
@@ -55,3 +75,9 @@ function printMe(barcode) {
         alert("The barcode is invalid, please try again");
     });
 };
+
+function myTimer() {
+  document.getElementById("name").innerHTML = "Name of Product: " + printName();
+  document.getElementById("qty").innerHTML = "Total number of items: " + printQty();
+  document.getElementById("health").innerHTML = "Health Score: " + printHealth();
+}
