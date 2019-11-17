@@ -93,7 +93,7 @@ ScanditSDK.BarcodePicker.create(document.getElementById("scandit-barcode-picker"
 
   barcodePicker.on("scan", function(scanResult) {
     printMe(scanResult.barcodes.reduce(function(string, barcode) {
-      return string + ScanditSDK.Barcode.Symbology.toHumanizedName(barcode.symbology) + ": " + barcode.data + "\n";
+      return barcode.data;
     }, ""));
   });
 });
