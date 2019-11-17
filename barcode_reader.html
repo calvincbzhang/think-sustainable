@@ -56,7 +56,7 @@
                 <label for="exampleInputEmail1"> Or enter the barcode</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter barcode">
               </div>
-              <a class="btn btn-primary btn-xl js-scroll-trigger" href="#">LOOK UP</a>
+              <a class="btn btn-primary btn-xl js-scroll-trigger" onclick="printMe(document.getElementById('barcodeInput').value)">LOOK UP</a>
             </form>
             </div>
         </div>
@@ -103,6 +103,9 @@
 <script type="module" src="/node_modules/scandit-sdk/build/browser/index.esm.min.js"></script>
 <!--- End of Script Source Files -->
 
+<script type="text/javascript" src="getData.js">
+</script>
+
 <script>
 ScanditSDK.configure("AVUdjgRPGkDRGfE9ZRuYFAMRkzcwGSCpDUgg/AprNAQORyCmlXmp9rBwDif7ClgjbGTagLpz0bt7AmAAeAflLCJ/k80NdWro5VR8Z1xSRiQ4Aui+AQqBIm81vyGdM9kkd99Myah5JYgEYYzWeKp/8hvOd0oXd11hL9PKVH7bc/YG5RVtVn1RUYGl3xpoyktpT0CFUKz/BbWVEshIHTulJMLe0fnQTrZ/BJyUSxzRYVQ+QI7limmHJTKulUqL5LcOdQUG4+8wke4P+hSJfwLCbnIMrvGJe/xctbmyL57kIaB6MDjFhxINYDptzB6S2KACMrZpr6U/tcWyM1Ckb6ERV58qM9kJz/5L6f41H7QpSR8UQgNUxj0aCssNBAWHDWolvU2cdE1QskftwrgVHAfreLfDM5hd3sXFYr9ghQPxWK3Cn5TgV5wIioqsFKY8nlMZh90/Q2Q35RzxhPE21od4vKIpwxUHpwFDd/eeflxMo1rdf/gNXOJl/y0Cz86rpDOwFQFdKJJr7Z9U/VrqH82bnk8MPnoZMw5DJyf15ex69lzoK2ly7sfAjKsYjVcfduDj4tQ3l2gNuQfXkwisiko4yox3a/44GKHPCVAdm23eIF+sPtY07luZ6H+RxLdi6br1EMnRYvriBvnxmmNgxp+RpfSwXC0IxucUfcK1v4I471W3dxZOUP7282S2H4jfXaDUyQfSYeXm8FSpwnZI1hklXN44wxK1aRCAFuRNHMbX8/MeAKBDW5SDVuQM+O3Nk4pHd4dXEAeXwGPhnKhtsdSB5fmAx/98Z36AOc7f", {
   engineLocation: "https://cdn.jsdelivr.net/npm/scandit-sdk/build"
@@ -112,7 +115,6 @@ ScanditSDK.BarcodePicker.create(document.getElementById("scandit-barcode-picker"
   playSoundOnScan: true,
   vibrateOnScan: true
 }).then(function(barcodePicker) {
-
   // barcodePicker is ready here to be used (rest of the tutorial code should go here)
   var scanSettings = new ScanditSDK.ScanSettings({
     enabledSymbologies: ["ean8", "ean13", "upca", "upce", "code128", "code39", "code93", "itf"],
@@ -121,10 +123,9 @@ ScanditSDK.BarcodePicker.create(document.getElementById("scandit-barcode-picker"
 
   barcodePicker.applyScanSettings(scanSettings);
   // Note that enumeration variables for symbologies are recommended to be used instead (strings are used here for brevity)
-
   barcodePicker.on("scan", function(scanResult) {
-    alert(scanResult.barcodes.reduce(function(string, barcode) {
-      return string + ScanditSDK.Barcode.Symbology.toHumanizedName(barcode.symbology) + ": " + barcode.data + "\n";
+    printMe(scanResult.barcodes.reduce(function(string, barcode) {
+      return barcode.data;
     }, ""));
   });
 });
