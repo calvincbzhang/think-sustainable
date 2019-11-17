@@ -91,7 +91,9 @@
             var healthScore = readableData.healthScore;
             var hazard = readableData.isHazardous;
             var quantity = data.products[0].qtyContents.quantity;
+						var footprint = quantity * 2.71;
             console.log("quantity: " + quantity);
+						console.log("footprint: " + footprint);
             console.log("healthScore: " + healthScore);
             console.log("is it Hazardous: " + hazard);
         })
