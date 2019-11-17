@@ -69,40 +69,39 @@
 <!--- End of Script Source Files -->
 
 <!--script for calling the API-->
+<script type="text/javascript">
+    function printMe(barcode) {
+        var params = {
+            // Request parameters
+            "gtin": barcode,
+        };
+
+        $.ajax({
+            url: "https://dev.tescolabs.com/product/?" + $.param(params),
+            beforeSend: function(xhrObj){
+                // Request headers
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","82a19d5b25574c0491ea06ca5d8eadb2");
+            },
+            type: "GET",
+            // Request body
+            data: "{body}",
+        })
+        .done(function(data) {
+            const readableData = data.products[0].productCharacteristics
+            var healthScore = readableData.healthScore;
+            var hazard = readableData.isHazardous;
+            var quantity = data.products[0].qtyContents.quantity;
+            console.log("quantity: " + quantity);
+            console.log("healthScore: " + healthScore);
+            console.log("is it Hazardous: " + hazard);
+        })
+        .fail(function() {
+            alert("The barcode is invalid, please try again");
+        });
+    };
+</script>
 
 <script>
-//function for calling api
-function printMe(barcode) {
-		var params = {
-				// Request parameters
-				"gtin": barcode,
-		};
-
-		$.ajax({
-				url: "https://dev.tescolabs.com/product/?" + $.param(params),
-				beforeSend: function(xhrObj){
-						// Request headers
-						xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","82a19d5b25574c0491ea06ca5d8eadb2");
-				},
-				type: "GET",
-				// Request body
-				data: "{body}",
-		})
-		.done(function(data) {
-				const tpnc = data.products[0].tpnc
-				const readableData = data.products[0].productCharacteristics
-				var healthScore = readableData.healthScore;
-				var hazard = readableData.isHazardous;
-				var quantity = data.products[0].qtyContents.quantity;
-				console.log("quantity: " + quantity);
-				console.log("healthScore: " + healthScore);
-				console.log("is it Hazardous: " + hazard);
-		})
-		.fail(function() {
-				alert("The barcode is invalid, please try again");
-		});
-};
-
 ScanditSDK.configure("AVUdjgRPGkDRGfE9ZRuYFAMRkzcwGSCpDUgg/AprNAQORyCmlXmp9rBwDif7ClgjbGTagLpz0bt7AmAAeAflLCJ/k80NdWro5VR8Z1xSRiQ4Aui+AQqBIm81vyGdM9kkd99Myah5JYgEYYzWeKp/8hvOd0oXd11hL9PKVH7bc/YG5RVtVn1RUYGl3xpoyktpT0CFUKz/BbWVEshIHTulJMLe0fnQTrZ/BJyUSxzRYVQ+QI7limmHJTKulUqL5LcOdQUG4+8wke4P+hSJfwLCbnIMrvGJe/xctbmyL57kIaB6MDjFhxINYDptzB6S2KACMrZpr6U/tcWyM1Ckb6ERV58qM9kJz/5L6f41H7QpSR8UQgNUxj0aCssNBAWHDWolvU2cdE1QskftwrgVHAfreLfDM5hd3sXFYr9ghQPxWK3Cn5TgV5wIioqsFKY8nlMZh90/Q2Q35RzxhPE21od4vKIpwxUHpwFDd/eeflxMo1rdf/gNXOJl/y0Cz86rpDOwFQFdKJJr7Z9U/VrqH82bnk8MPnoZMw5DJyf15ex69lzoK2ly7sfAjKsYjVcfduDj4tQ3l2gNuQfXkwisiko4yox3a/44GKHPCVAdm23eIF+sPtY07luZ6H+RxLdi6br1EMnRYvriBvnxmmNgxp+RpfSwXC0IxucUfcK1v4I471W3dxZOUP7282S2H4jfXaDUyQfSYeXm8FSpwnZI1hklXN44wxK1aRCAFuRNHMbX8/MeAKBDW5SDVuQM+O3Nk4pHd4dXEAeXwGPhnKhtsdSB5fmAx/98Z36AOc7f", {
   engineLocation: "https://cdn.jsdelivr.net/npm/scandit-sdk/build"
 });
@@ -122,7 +121,9 @@ ScanditSDK.BarcodePicker.create(document.getElementById("scandit-barcode-picker"
   // Note that enumeration variables for symbologies are recommended to be used instead (strings are used here for brevity)
 
   barcodePicker.on("scan", function(scanResult) {
-    printMe(scanResult.barcodes.reduce(function(string, barcode)));
+    printMe(scanResult.barcodes.reduce(function(string, barcode) {
+      return string + ScanditSDK.Barcode.Symbology.toHumanizedName(barcode.symbology) + ": " + barcode.data + "\n";
+    }, ""));
   });
 });
 </script>
