@@ -1,0 +1,25 @@
+package api;
+//This sample uses Apache HttpComponents:
+//http://hc.apache.org/httpcomponents-core-ga/httpcore/apidocs/
+//https://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/
+
+import java.net.URI;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class print {
+	
+	public static void main(String[] args)
+	{
+		System.out.println("done");
+	}
+
+}
