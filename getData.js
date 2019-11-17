@@ -2,6 +2,18 @@ var totalQuantity = 0;
 var totalFootPrint = 0;
 var averageHealth = 0;
 
+function outputTotalQuantity(){
+  console.log(totalQuantity);
+}
+
+function outputTotalFootprint(){
+  console.log(totalFootPrint);
+}
+
+function outputAverageHealth(){
+  console.log(averageHealth);
+}
+
 function printMe(barcode) {
     var params = {
         // Request parameters
@@ -19,7 +31,9 @@ function printMe(barcode) {
         data: "{body}",
     })
     .done(function(data) {
-        const readableData = data.products[0].productCharacteristics
+      if(!(data.products == undefined || data.products.length == 0)){
+        const readableData = data.products[0].productCharacteristics;
+        const description = data.products[0].description;
         var healthScore = readableData.healthScore;
         var hazard = readableData.isHazardous;
         var quantity = data.products[0].qtyContents.quantity;
@@ -28,9 +42,14 @@ function printMe(barcode) {
         totalQuantity++;
         totalFootPrint = totalFootPrint + footprint;
         console.log("quantity: " + totalQuantity);
+        console.log(description);
         console.log("total Foot Print: " + totalFootPrint);
         console.log("healthScore: " + averageHealth);
         console.log("is it Hazardous: " + hazard);
+      }
+      else {
+        alert("item not found");
+      }
     })
     .fail(function() {
         alert("The barcode is invalid, please try again");
