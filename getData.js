@@ -9,17 +9,25 @@ var quantity;
 var footprint;
 var myVar = setInterval(myTimer, 500);
 
+function totalTrees(mass) {
+  var trees = Math.ceil(mass / 56);
+  console.log(trees);
+  return trees;
+}
 
 function outputTotalQuantity(){
   console.log(totalQuantity);
+  return totalQuantity;
 }
 
 function outputTotalFootprint(){
   console.log(totalFootPrint);
+  return totalFootPrint;
 }
 
 function outputAverageHealth(){
   console.log(averageHealth);
+  return averageHealth;
 }
 
 function printName() {
@@ -80,4 +88,10 @@ function myTimer() {
   document.getElementById("name").innerHTML = "Name of Product: " + printName();
   document.getElementById("qty").innerHTML = "Total number of items: " + printQty();
   document.getElementById("health").innerHTML = "Health Score: " + printHealth();
+  document.getElementById("trees").innerHTML = "Trees to reverse the effect: " + totalTrees(totalFootPrint);
+}
+
+function moveMe() {
+  window.location.href = "result.html?"+"key="+outputAverageHealth();  
+  console.log("here")
 }

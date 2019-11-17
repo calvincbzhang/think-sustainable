@@ -47,12 +47,12 @@
 
   <!-- Header -->
   <header class="masthead d-flex">
-      <div class="container text-center my-auto">
-        <h2 class="mb-1">Average Health Score</h2>
-				<div id="some_element"/></div>
-      </div>
-      <div class="overlay"></div>
-    </header>
+    <div class="container text-center my-auto">
+      <h2 class="mb-1">Average Health Score</h2>
+      <div id="some_element"></div>
+    </div>
+    <div class="overlay"></div>
+  </header>
 
 </div>
 <!-- End Home Section -->
@@ -89,6 +89,9 @@
 		 }
 	 }
 
+  var urlParams = new URLSearchParams(window.location.search);
+
+  value = urlParams.get('key');
 
 	function demoKnob() {
 		// Create knob element, 300 x 300 px in size.
@@ -97,13 +100,13 @@
 		// Set properties.
 		knob.setProperty('angleStart', -0.75 * Math.PI);
 		knob.setProperty('angleEnd', 0.75 * Math.PI);
-		knob.setProperty('colorFG', colourPicker(outputAverageHealth()));
+		knob.setProperty('colorFG', colourPicker(value));
 		knob.setProperty('trackWidth', 0.4);
 		knob.setProperty('valMin', 0);
 		knob.setProperty('valMax', 100);
 
 		// Set initial value.
-		knob.setValue(outputAverageHealth());
+		knob.setValue(value);
 
 		/*
 		 * Event listener.
@@ -175,7 +178,9 @@
 		demoBarGraph();
 	}
 
-	document.addEventListener('DOMContentLoaded', ready, false);
+  document.addEventListener('DOMContentLoaded', ready, false);
+  
+
 	// ]]>
 </script>
 
