@@ -18,11 +18,15 @@ const getDataFromAPI = () => {
 
 const countBreeds = async () => {
   const breeds = await getDataFromAPI()
+  const tpnc = breeds.data.products[0].tpnc
   const readableData = breeds.data.products[0].productCharacteristics
   var healthScore = readableData.healthScore;
   var hazard = readableData.isHazardous;
-  console.log(healthScore);
-  console.log(hazard);
+  var quantity = breeds.data.products[0].qtyContents.quantity;
+  console.log("quantity: " + quantity);
+  console.log("healthScore: " + healthScore);
+  console.log("is it Hazardous:" + hazard);
+  console.log("tpnc: " + tpnc);
   return healthScore;
 }
 
